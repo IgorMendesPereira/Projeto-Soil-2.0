@@ -29,7 +29,7 @@ class AnalyzeForm extends Component {
                     <button type='submit' className={`btn btn-${this.props.submitClass}`}>
                         {this.props.submitLabel}
                     </button>
-                    <button type='button' className=' btn btn-default' onClick={this.props.init}>Cancel</button>
+                    <button type='button' className=' btn btn-default' onClick={this.props.init}>Cancelar</button>
                 </div>
             </form>
         )
