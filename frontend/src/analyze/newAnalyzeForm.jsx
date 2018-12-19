@@ -19,17 +19,17 @@ class NewAnalyzeForm extends Component {
             <form role='form' onSubmit={handleSubmit}>
                 <div className='box-body'>
                     <Field name='parameter1' component={labelAndInput} readOnly={readOnly}
-                        label='Parâmetro 1' cols='12 2' placeholder='Valor' />
+                        label='Identificador Pivô' cols='12 2' placeholder='Valor' />
                     <Field name='parameter2' component={labelAndInput} readOnly={readOnly}
-                        label='Parâmetro 2' cols='12 2' placeholder='Valor' />
-                    <Field name='parameter3' component={labelAndInput} readOnly={readOnly}
-                        label='Parâmetro 3' cols='12 2' placeholder='Valor' />    
+                        label='Local de referência' cols='12 2' placeholder='Valor' />
+                    {/* <Field name='parameter3' component={labelAndInput} readOnly={readOnly}
+                        label='' cols='12 2' placeholder='Valor' />    
                     <Field name='parameter4' component={labelAndInput} readOnly={readOnly}
                         label='Parâmetro 4' cols='12 2' placeholder='Valor' />
                     <Field name='parameter5' component={labelAndInput} readOnly={readOnly}
                         label='Parâmetro 5' cols='12 2' placeholder='Valor' />
                     <Field name='id_client' type="hidden" component={labelAndInput} readOnly={readOnly}
-                        cols='0' />
+                        cols='0' /> */}
                  </div>  
                     {/* <button className='btn btn-success' onClick={() => this.props.showHistory(an)}>
                 <button className='btn btn-success' onClick={() => this.props.showHistory(an)}>

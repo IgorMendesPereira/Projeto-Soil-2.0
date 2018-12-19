@@ -27,7 +27,7 @@ export function getListHistory() {
 
 export const searchAnalyze = (id_client) => {  //vai buscar os serviços no backend
     return (dispatch, getState) => {
-        console.log("searchAnalyze", id_client)
+       // console.log("searchAnalyze", id_client)
         const search = id_client ? `&id_client__regex=/${id_client}/` : ''
         const request = axios.get(`${BASE_URL}/analyzes/?sort=-createdAt${search}`)
             .then(resp => dispatch({ type: 'ANALYZE__FETCHED', payload: resp }))
@@ -51,16 +51,59 @@ export function remove(values) {
 
 function submit(values, method) {
     return dispatch => {
-        console.log("Value = ", values._id)
+        //console.log("Value = ", values._id)
         const id = values._id ? values._id : ''
-        console.log("id = ", id)
+        //console.log("id = ", id)
         const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' // PENSAR.. PENSAR..
-        console.log("clientsOranalyzes = ", clientsOranalyzes)
+        //console.log("clientsOranalyzes = ", clientsOranalyzes)
 
         axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
             .then(resp => {
                 toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
                 dispatch(init())
+            })
+            .catch(e => {   //qdo o banco acusar algum erro
+                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+            })
+    }
+}
+function ligar(values, method) {
+    return dispatch => {
+        //console.log("Value = ", values._id)
+        const id = values._id ? values._id : ''
+        values.parameter1 = "Ligado";
+        //console.log("id = ", id)
+        const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' // PENSAR.. PENSAR..
+        //console.log("clientsOranalyzes = ", clientsOranalyzes)
+
+        axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+            .then(resp => {
+                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                dispatch(init_2())
+            })
+            .catch(e => {   //qdo o banco acusar algum erro
+                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+            })
+
+            axios.post('http://192.168.137.2:10003', { name:'1' })
+
+
+    }
+}
+function desligar(values, method) {
+    return dispatch => {
+        //console.log("Value = ", values._id)
+        const id = values._id ? values._id : ''
+        values.parameter1 = "Desligado";
+        //console.log("id = ", id)
+        const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' // PENSAR.. PENSAR..
+        //console.log("clientsOranalyzes = ", clientsOranalyzes)
+
+        axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+            .then(resp => {
+                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                this.setState({ state: this.state });
+                dispatch(init_2())
             })
             .catch(e => {   //qdo o banco acusar algum erro
                 e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
@@ -84,7 +127,14 @@ function nossoDelete(values, id_2) {
         //window.location.reload()
 }
 
-function integrar(analyze) { //integração
+export function updateLigar(values) {
+    return ligar(values, 'put')
+}
+export function updateDesligar(values) {
+    return desligar(values, 'put')
+}
+
+/* function integrar(analyze) { //integração
     axios.post('update')(`${RAFA_URL}/${analyze}/${analyze._id}`, values) // Tentando uma possivel conversa
         console.log("TESTE = ", _id)
         .then(resp => {
@@ -95,7 +145,7 @@ function integrar(analyze) { //integração
             console.log(e)
             e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
         })
-}   
+}    */
 
 /**************************************************************************************************/
 
@@ -107,7 +157,7 @@ export const changeName = (event) => ({
 export const search = () => {  //vai buscar os serviços no backend
     return (dispatch, getState) => {
         const searchingName = getState().analyze.searchingName
-        console.log(searchingName)
+        //console.log(searchingName)
         const search = searchingName ? `&name__regex=/${searchingName}/` : ''
         const request = axios.get(`${BASE_URL}/clients/?sort=-createdAt${update}`)
             .then(resp => dispatch({ type: 'NAME_FETCHED', payload: resp }))
@@ -122,7 +172,7 @@ export const clear = () => {
 
 export function showUpdate(analyze) {
     return [
-        console.log("showUpdate", analyze),
+        //console.log("showUpdate", analyze),
         { type: 'FORM_FORMNEW', payload: analyze },
         showTabs('tabUpdate'),
         selectTab('tabUpdate'),
@@ -152,7 +202,7 @@ export function showHistory(analyze) {
     if (analyze._id != undefined)
         id = analyze._id;
     return [
-        console.log('Valor=' + id),
+        //console.log('Valor=' + id),
         searchAnalyze(id),
         showTabs('tabHistory'),
         selectTab('tabHistory'),
@@ -173,6 +223,14 @@ export function init() {
     return [
         showTabs('tabList', 'tabCreate'),
         selectTab('tabList'),
+        search(),
+        initialize('analyzeForm', INITIAL_VALUES) //inicializar o formulário com dados já cadastrados
+    ]
+}
+export function init_2() {
+    return [
+        showTabs('tabHistory', 'tabCreate'),
+        selectTab('tabHistory'),
         search(),
         initialize('analyzeForm', INITIAL_VALUES) //inicializar o formulário com dados já cadastrados
     ]

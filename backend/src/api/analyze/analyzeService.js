@@ -6,6 +6,7 @@ Analyze.updateOptions({new: true, runValidators: true})    //new:true - request 
 Analyze.after('post', errorHandler). after('put', errorHandler)   //interceptar "depois" os métodos post e put para aplicar o middleware que faz o tratamento de erro                                                        //run... - valores (min..máx..etc) não valer apenas para o post
 
 Analyze.route('count', (req, res, next) => {
+    console.log('oi')
     Analyze.count((error, value) => {
         if(error) {
             res.status(500).json({errors: [error]})
