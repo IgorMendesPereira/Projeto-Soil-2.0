@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { search, showUpdate, showDelete, fazendaDelete, showHistory } from './analyzeAction'
+import { search, showUpdate, showDelete, meuDelete, showHistory } from './analyzeAction'
 
 class AnalyzeList extends Component {
 
@@ -22,7 +22,7 @@ class AnalyzeList extends Component {
                     <button className='btn btn-warning' onClick={() => this.props.showUpdate(an)}>
                     <th>Editar</th>
                     </button>
-                    <button className='btn btn-danger' onClick={() => this.props.fazendaDelete(an)}>
+                    <button className='btn btn-danger' onClick={() => this.props.meuDelete(an)}>
                     <th>Excluir</th>
                     </button>
                     <button className='btn btn-success' onClick={() => this.props.showHistory(an)}>
@@ -57,5 +57,5 @@ class AnalyzeList extends Component {
 }
 
 const mapStateToProps = state => ({list: state.analyze.list}) //billingCycle é do reducer global
-const mapDispatchToProps = dispatch => bindActionCreators({search, showUpdate, showDelete, fazendaDelete, showHistory}, dispatch) //dispatch dispara a ação pros reducers
+const mapDispatchToProps = dispatch => bindActionCreators({search, showUpdate, showDelete, meuDelete, showHistory}, dispatch) //dispatch dispara a ação pros reducers
 export default connect(mapStateToProps, mapDispatchToProps)(AnalyzeList)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { showUpdate, showDelete, init, showNew } from './analyzeAction'
+import { showUpdate, showDelete, fazendaDelete, init, showNew } from './analyzeAction'
 
 class AnalyzeListHistory extends Component {
 
@@ -81,5 +81,5 @@ class AnalyzeListHistory extends Component {
 }
 
 const mapStateToProps = state => ({listHistory: state.analyze.listHistory}) //analyze é do reducer global
-const mapDispatchToProps = dispatch => bindActionCreators({showUpdate, showDelete, init, showNew}, dispatch) //dispatch dispara a ação pros reducers
+const mapDispatchToProps = dispatch => bindActionCreators({showUpdate, showDelete, fazendaDelete, init, showNew}, dispatch) //dispatch dispara a ação pros reducers
 export default connect(mapStateToProps, mapDispatchToProps)(AnalyzeListHistory)

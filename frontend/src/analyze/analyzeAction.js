@@ -128,6 +128,15 @@ export function showDelete(analyze) { //refazer, colocar o id da aba.. o código
     initialize('analyzeForm', analyze) //inicializar o formulário com dados já cadastrados
     ]*/}
 }
+export function meuDelete(analyze) { //refazer, colocar o id da aba.. o código está duplicado
+    return [
+        //console.log("showDelete", analyze),
+        { type: 'FORM_FORMNEW', payload: analyze},
+        showTabs('tabDelete'),
+        selectTab('tabDelete'),
+        initialize('analyzeForm', analyze) //inicializar o formulário com dados já cadastrados
+    ]
+}
 
 export function showHistory(analyze) {
     // buscar o cara que ta logado
