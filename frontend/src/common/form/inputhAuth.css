@@ -1,0 +1,11 @@
+.form-group button#show_password{
+      position: absolute;
+      bottom: 2px;
+      right: 0;
+      border: none;
+      background-color: transparent;
+      font-size: 20px;
+    }
+button[type=submit]{
+      margin-top: 0.5em;
+    }

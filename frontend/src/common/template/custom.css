@@ -1,0 +1,21 @@
+.main-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+button{
+    margin-left: 5px;
+}
+.table-actions {
+    width: 150px;
+}
+
+.analyzeForm {
+    padding-bottom: 60px;
+}
+
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    border-radius: 4px;
+}
