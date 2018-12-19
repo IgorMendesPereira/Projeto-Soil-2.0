@@ -5,6 +5,7 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 
 
 const BASE_URL = 'http://localhost:3003/api'
+const RAFA_URL = "192.168.137.2"
 const INITIAL_VALUES = { name: "", telephone: "", city: "", propertyname: "" }//ARRUMAR.. TÁ ERRADO
 var id;
 
@@ -83,6 +84,19 @@ function nossoDelete(values, id_2) {
         //window.location.reload()
 }
 
+function integrar(analyze) { //integração
+    axios.post('update')(`${RAFA_URL}/${analyze}/${analyze._id}`, values) // Tentando uma possivel conversa
+        console.log("TESTE = ", _id)
+        .then(resp => {
+            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+            dispatch(init())
+        })
+        .catch(e => {   //qdo o banco acusar algum erro
+            console.log(e)
+            e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+        })
+}   
+
 /**************************************************************************************************/
 
 export const changeName = (event) => ({
@@ -116,19 +130,14 @@ export function showUpdate(analyze) {
     ]
 }
 
-export function showDelete(analyze) { //refazer, colocar o id da aba.. o código está duplicado
+export function showDelete(analyze) { //delete do pivo
     nossoDelete(analyze, analyze._id)
     window.location.reload()
     showHistory(analyze)
-    {/*return [
-        console.log("showDelete = " + analyze._id),
-        { type: 'FORM_FORMNEW', payload: analyze },
-        showTabs('tabDelete'),
-        selectTab('tabDelete'),
-    initialize('analyzeForm', analyze) //inicializar o formulário com dados já cadastrados
-    ]*/}
+  
 }
-export function meuDelete(analyze) { //refazer, colocar o id da aba.. o código está duplicado
+export function meuDelete(analyze) { //delete da fazenda
+
     return [
         //console.log("showDelete", analyze),
         { type: 'FORM_FORMNEW', payload: analyze},
