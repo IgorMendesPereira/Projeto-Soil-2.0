@@ -55,12 +55,12 @@ class Analyze extends Component {
                                     submitLabel='Cadastrar' submitClass='info'/> 
                             </TabHContent>
                             <TabHContent id='tabUpdate'>
-                                <Form onSubmit={this.props.showHistory}
+                                <Form onSubmit={this.props.update}
                                     submitLabel='Pronto' submitClass='info' />
                             </TabHContent>
                             <TabHContent id='tabDelete'>
                                 <Form onSubmit={this.props.remove} readOnly={true}
-                                submitLabel='Excluuuir' submitClass='danger'/>
+                                submitLabel='Excluir' submitClass='danger'/>
                             </TabHContent>
                             <TabHContent id='tabHistory'>
                                 <ListHistory />
