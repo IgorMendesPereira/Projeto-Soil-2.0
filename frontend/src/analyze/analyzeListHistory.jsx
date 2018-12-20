@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { showUpdate, showDelete, fazendaDelete, init, showNew } from './analyzeAction'
+import { updateLigar,updateDesligar,showUpdate, showDelete, fazendaDelete,integrar, init, showNew } from './analyzeAction'
 
 class AnalyzeListHistory extends Component {
 
@@ -13,16 +13,16 @@ class AnalyzeListHistory extends Component {
                 
             <tr key={x._id}>
                 <td>{x.analyzeCreatedAT}</td>
+                <td>{x.parameter4}</td>
+                <td>{x.parameter5}</td>
                 <td>{x.parameter1}</td>
                 <td>{x.parameter2}</td>
                 <td>{x.parameter3}</td>
-                <td>{x.parameter4}</td>
-                <td>{x.parameter5}</td>
                 <td>
-                    <button className='btn btn-success' onClick={() => this.props.showUpdate(an)}>
+                    <button className='btn btn-success' onClick={() => this.props.updateLigar(x)}>
                     <th>Ligar</th>
                     </button>
-                    <button className='btn btn-danger' onClick={() => this.props.showDelete(an)}>
+                    <button className='btn btn-danger' onClick={() => this.props.updateDesligar(x)}>
                     <th>Desligar</th>
                     </button> 
                 </td>
@@ -53,11 +53,11 @@ class AnalyzeListHistory extends Component {
                     <thead>
                         <tr>
                             <th>Data</th>
+                            <th>Identificador Pivô</th>
+                            <th>Local</th>
                             <th>Ligado/Desligado</th>
                             <th>Avanço/Reverço</th>
                             <th>Seco/Molhado</th>
-                            <th>P4</th>
-                            <th>P5</th>
                             <th>Liga/Desliga</th>
                             <th>Sentido</th>
                             <th className='table-actions'></th>
@@ -81,5 +81,5 @@ class AnalyzeListHistory extends Component {
 }
 
 const mapStateToProps = state => ({listHistory: state.analyze.listHistory}) //analyze é do reducer global
-const mapDispatchToProps = dispatch => bindActionCreators({showUpdate, showDelete, fazendaDelete, init, showNew}, dispatch) //dispatch dispara a ação pros reducers
+const mapDispatchToProps = dispatch => bindActionCreators({updateLigar,updateDesligar,showUpdate, showDelete, fazendaDelete,integrar, init, showNew}, dispatch) //dispatch dispara a ação pros reducers
 export default connect(mapStateToProps, mapDispatchToProps)(AnalyzeListHistory)
