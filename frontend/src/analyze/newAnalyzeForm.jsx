@@ -5,7 +5,6 @@ import { reduxForm, Field } from 'redux-form'   //Field é uma tag
 
 import labelAndInput from '../common/form/labelAndInput'
 import { init } from './analyzeAction'
-
 class NewAnalyzeForm extends Component {
 
     componentDidMount() {
@@ -18,9 +17,9 @@ class NewAnalyzeForm extends Component {
          return(
             <form role='form' onSubmit={handleSubmit}>
                 <div className='box-body'>
-                    <Field name='parameter1' component={labelAndInput} readOnly={readOnly}
+                    <Field name='parameter4' component={labelAndInput} readOnly={readOnly}
                         label='Identificador Pivô' cols='12 2' placeholder='Valor' />
-                    <Field name='parameter2' component={labelAndInput} readOnly={readOnly}
+                    <Field name='parameter5' component={labelAndInput} readOnly={readOnly}
                         label='Local de referência' cols='12 2' placeholder='Valor' />
                     {/* <Field name='parameter3' component={labelAndInput} readOnly={readOnly}
                         label='' cols='12 2' placeholder='Valor' />    

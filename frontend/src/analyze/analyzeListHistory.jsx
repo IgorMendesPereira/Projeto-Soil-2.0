@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateLigar,updateDesligar,showUpdate, showDelete, fazendaDelete,integrar, init, showNew } from './analyzeAction'
+import { updateLigar,updateDesligar,showUpdate, showDelete, updateReverso, updateAvanco,integrar, init, showNew } from './analyzeAction'
 
 class AnalyzeListHistory extends Component {
 
@@ -27,10 +27,10 @@ class AnalyzeListHistory extends Component {
                     </button> 
                 </td>
                 <td>
-                    <button className='btn btn-success' onClick={() => this.props.showDelete(an)}>
+                    <button className='btn btn-success' onClick={() => this.props.updateAvanco(x)}>
                     <th>Avanço</th>
                     </button>
-                    <button className='btn btn-danger' onClick={() => this.props.showHistory(an)}>
+                    <button className='btn btn-danger' onClick={() => this.props.updateReverso(x)}>
                     <th>Reverso</th>
                     </button></td>
                 <td>
@@ -81,5 +81,5 @@ class AnalyzeListHistory extends Component {
 }
 
 const mapStateToProps = state => ({listHistory: state.analyze.listHistory}) //analyze é do reducer global
-const mapDispatchToProps = dispatch => bindActionCreators({updateLigar,updateDesligar,showUpdate, showDelete, fazendaDelete,integrar, init, showNew}, dispatch) //dispatch dispara a ação pros reducers
+const mapDispatchToProps = dispatch => bindActionCreators({updateLigar,updateDesligar,updateReverso, showUpdate, showDelete, updateAvanco,integrar, init, showNew}, dispatch) //dispatch dispara a ação pros reducers
 export default connect(mapStateToProps, mapDispatchToProps)(AnalyzeListHistory)

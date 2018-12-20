@@ -67,11 +67,74 @@ function submit(values, method) {
             })
     }
 }
-function ligar(values, method) {
+function ligar(values) {
     return dispatch => {
         //console.log("Value = ", values._id)
         const id = values._id ? values._id : ''
         values.parameter1 = "Ligado";
+        //console.log("id = ", id)
+        const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' 
+        //console.log("clientsOranalyzes = ", clientsOranalyzes)
+
+        {/*axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+            .then(resp => {
+                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                this.setState({ state: this.state });
+                dispatch(init_2())
+            })
+            .catch(e => {   //qdo o banco acusar algum erro
+                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+            })*/}
+            axios.post('http://192.168.137.2:10003', 0x01 )
+            console.log()
+            .then(resp => {
+                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                this.setState({ state: this.state });
+                dispatch(init_2())
+            })
+            .catch(e => {   //qdo o banco acusar algum erro
+                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+            })  
+
+    }
+}
+function desligar(values) {
+    return dispatch => {
+        //console.log("Value = ", values._id)
+        const id = values._id ? values._id : ''
+        values.parameter1 = "Desligado";
+        //console.log("id = ", id)
+        const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' 
+        //console.log("clientsOranalyzes = ", clientsOranalyzes)
+
+        {/*axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+            .then(resp => {
+                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                this.setState({ state: this.state });
+                dispatch(init_2())
+            })
+            .catch(e => {   //qdo o banco acusar algum erro
+                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+            })*/}
+            axios.post('http://192.168.137.2:10003', 0x02 )
+            console.log("test desligas = ",)
+            .then(resp => {
+                console.log("teste DESLIGAR = ",)
+                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                this.setState({ state: this.state });
+                dispatch(init_2())
+            })
+            .catch(e => {   //qdo o banco acusar algum erro
+                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+            })  
+
+    }
+}
+function reverso(values, method) {
+    return dispatch => {
+        //console.log("Value = ", values._id)
+        const id = values._id ? values._id : ''
+        values.parameter2 = "Reverso";
         //console.log("id = ", id)
         const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' // PENSAR.. PENSAR..
         //console.log("clientsOranalyzes = ", clientsOranalyzes)
@@ -79,22 +142,19 @@ function ligar(values, method) {
         axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
             .then(resp => {
                 toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                this.setState({ state: this.state });
                 dispatch(init_2())
             })
-            .catch(e => {   //qdo o banco acusar algum erro
+            .catch(e => {   
                 e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
             })
-
-            axios.post('http://192.168.137.2:10003', { name:'1' })
-
-
     }
 }
-function desligar(values, method) {
+function avanco(values, method) {
     return dispatch => {
         //console.log("Value = ", values._id)
         const id = values._id ? values._id : ''
-        values.parameter1 = "Desligado";
+        values.parameter2 = "Avanço";
         //console.log("id = ", id)
         const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' // PENSAR.. PENSAR..
         //console.log("clientsOranalyzes = ", clientsOranalyzes)
@@ -110,10 +170,8 @@ function desligar(values, method) {
             })
     }
 }
-
 function nossoDelete(values, id_2) {
     const id = id_2
-    //igor
     const clientsOranalyzes = 'analyzes';
     axios['delete'](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
         .then(resp => {
@@ -126,13 +184,23 @@ function nossoDelete(values, id_2) {
         })
         //window.location.reload()
 }
-
+//Mudam o Status de liga e desliga
 export function updateLigar(values) {
     return ligar(values, 'put')
 }
 export function updateDesligar(values) {
     return desligar(values, 'put')
 }
+//Mudam o Status de avanço e reverço
+export function updateAvanco(values) {
+    return avanco(values, 'put')
+}
+export function updateReverso(values) {
+    return reverso(values, 'put')
+}
+
+
+
 
 /* function integrar(analyze) { //integração
     axios.post('update')(`${RAFA_URL}/${analyze}/${analyze._id}`, values) // Tentando uma possivel conversa
