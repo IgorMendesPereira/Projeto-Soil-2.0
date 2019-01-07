@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+
 import { login, signup } from './authActions'
 import Row from '../common/layout/row'
 import Grid from '../common/layout/grid'
@@ -32,7 +33,7 @@ class Auth extends Component {
         const { handleSubmit } = this.props
         return (
             <div className="login-box">
-                <div className="login-logo"><b> Soil</b> </div>
+                <div className="login-logo"><b> Soil </b> </div>
                 <div className="login-box-body">
                     <p className="login-box-msg">Bem vindo!</p>
                     <form onSubmit={handleSubmit(v => this.onSubmit(v))}>

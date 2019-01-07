@@ -4,8 +4,9 @@ import { reset as resetForm, initialize } from 'redux-form'
 import { showTabs, selectTab } from '../common/tab/tabActions'
 
 
+
 const BASE_URL = 'http://localhost:3003/api'
-const RAFA_URL = "192.168.137.2"
+const RAFA_URL = 'http://192.168.137.2:10003'
 const INITIAL_VALUES = { name: "", telephone: "", city: "", propertyname: "" }//ARRUMAR.. TÁ ERRADO
 var id;
 
@@ -68,13 +69,11 @@ function submit(values, method) {
     }
 }
 function ligar(values) {
+    console.log("test ligado = ",)
     return dispatch => {
-        //console.log("Value = ", values._id)
         const id = values._id ? values._id : ''
         values.parameter1 = "Ligado";
-        //console.log("id = ", id)
         const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' 
-        //console.log("clientsOranalyzes = ", clientsOranalyzes)
 
         {/*axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
             .then(resp => {
@@ -85,9 +84,10 @@ function ligar(values) {
             .catch(e => {   //qdo o banco acusar algum erro
                 e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
             })*/}
+            //axios.post(`${RAFA_URL}/${clientsOranalyzes}/${id}`, 0x01) 
             axios.post('http://192.168.137.2:10003', 0x01 )
-            console.log()
             .then(resp => {
+                console.log("test ligado = ",)
                 toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
                 this.setState({ state: this.state });
                 dispatch(init_2())
@@ -99,13 +99,11 @@ function ligar(values) {
     }
 }
 function desligar(values) {
+    console.log("test desligas = ",)
     return dispatch => {
-        //console.log("Value = ", values._id)
         const id = values._id ? values._id : ''
         values.parameter1 = "Desligado";
-        //console.log("id = ", id)
         const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' 
-        //console.log("clientsOranalyzes = ", clientsOranalyzes)
 
         {/*axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
             .then(resp => {
@@ -116,10 +114,10 @@ function desligar(values) {
             .catch(e => {   //qdo o banco acusar algum erro
                 e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
             })*/}
+            // axios.post(`${RAFA_URL}/${clientsOranalyzes}/${id}`, 0x02) 
             axios.post('http://192.168.137.2:10003', 0x02 )
-            console.log("test desligas = ",)
             .then(resp => {
-                console.log("teste DESLIGAR = ",)
+                console.log("teste opera = ",)
                 toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
                 this.setState({ state: this.state });
                 dispatch(init_2())
