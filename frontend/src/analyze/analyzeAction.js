@@ -115,8 +115,8 @@ function desligar(values, method) {
             .catch(e => {   //qdo o banco acusar algum erro
                 e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
             })*/}
-            // axios[method](`${RAFA_URL}/${clientsOranalyzes}/${id}`,0x02) 
-           axios.post('http://192.168.137.2:10003', Buffer.from('02', 'hex'))
+            // axios[method](`${RAFA_URL}/${clientsOranalyzes}/${id}`,0x01) 
+          axios.post('http://192.168.137.2:10003', Buffer.from('02', 'hex'))
            // window.location.reload()
             .then(resp => {
                 console.log("teste opera = ",)
