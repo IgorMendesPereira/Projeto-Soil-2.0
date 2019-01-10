@@ -1,8 +1,9 @@
-import axios from 'axios'
+
 import { toastr } from 'react-redux-toastr'
 import { reset as resetForm, initialize } from 'redux-form'
 import { showTabs, selectTab } from '../common/tab/tabActions'
 
+const axios = require('axios');
 
 
 const BASE_URL = 'http://localhost:3003/api'
@@ -69,68 +70,62 @@ function submit(values, method) {
     }
 }
 function ligar(values, method) {
-    console.log("test ligado = ")  
     return dispatch => {
-        const id = values._id ? values._id : ''
-        values.parameter1 = "Ligado";
-        const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' 
-
-        {/*axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+        console.log("test ligado = ")
+        axios.post('http://localhost:3000/acionamento', { data: '01' })
             .then(resp => {
-                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
-                this.setState({ state: this.state });
-                dispatch(init_2())
+                console.log("test operali = ", resp.data)
+                // if (resp.data === 'ok') {
+                //   
+                //     const id = values._id ? values._id : ''
+                //     values.parameter1 = "Ligado";
+                //     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                //     axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                //         .then(resp => {
+                //             toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                //             this.setState({ state: this.state });
+                //             dispatch(init_2())
+                //         })
+                //         .catch(e => {   //qdo o banco acusar algum erro
+                //             e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+                //         })
+
+
+                // }}
             })
             .catch(e => {   //qdo o banco acusar algum erro
-                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
-            })*/}
-               // axios[method](`${RAFA_URL}/${clientsOranalyzes}/${id}`,0x01) 
-            axios.post('http://192.168.137.2:10003', Buffer.from('01', 'hex'))
-            .then(resp => {
-                console.log("test ligado = ",)
-                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
-                this.setState({ state: this.state });
-                dispatch(init_2())
+                console.log("erro= ", e)
             })
-            .catch(e => {   //qdo o banco acusar algum erro
-                console.log("erro= ",e)
-                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
-            })  
+    }}
 
-    }
-}
-function desligar(values, method) {
+function desligar(values,method) {
+    return dispatch =>{
     console.log("test desligas = ",)
-    return dispatch => {
-        const id = values._id ? values._id : ''
-        values.parameter1 = "Desligado";
-        const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' 
+          axios.post('http://localhost:3000/acionamento', {data:'02'})
+            .then(resp => {
+                console.log("teste opera = ", resp.data)
+                // if (resp.data.toString() === 'ok') {
+                //     
+                //     const id = values._id ? values._id : ''
+                //     values.parameter1 = "Desligado";
+                //     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                //     axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                //         .then(resp => {
+                //             toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                //             this.setState({ state: this.state });
+                //             dispatch(init_2())
+                //         })
+                //         .catch(e => {   //qdo o banco acusar algum erro
+                //             e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+                //         })
 
-        {/*axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
-            .then(resp => {
-                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
-                this.setState({ state: this.state });
-                dispatch(init_2())
-            })
-            .catch(e => {   //qdo o banco acusar algum erro
-                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
-            })*/}
-            // axios[method](`${RAFA_URL}/${clientsOranalyzes}/${id}`,0x01) 
-          axios.post('http://192.168.137.2:10003', Buffer.from('02', 'hex'))
-           // window.location.reload()
-            .then(resp => {
-                console.log("teste opera = ",)
-                toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
-                this.setState({ state: this.state });
-                dispatch(init_2())
+
+                // }}
             })
             .catch(e => {   //qdo o banco acusar algum erro
                 console.log("erro= ",e)
-                e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
             })  
-
-    }
-}
+}}
 function reverso(values, method) {
     return dispatch => {
         //console.log("Value = ", values._id)

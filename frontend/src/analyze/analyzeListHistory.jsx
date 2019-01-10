@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateLigar,updateDesligar,showUpdate, showDelete, updateReverso, updateAvanco,integrar, init, showNew } from './analyzeAction'
+import {showUpdate,updateLigar,updateDesligar, showDelete, updateReverso, updateAvanco,integrar, init, showNew } from './analyzeAction'
+
 
 class AnalyzeListHistory extends Component {
 
