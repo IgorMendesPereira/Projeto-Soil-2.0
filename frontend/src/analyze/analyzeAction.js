@@ -100,7 +100,7 @@ function ligar(values, method) {
 
 function desligar(values,method) {
     return dispatch =>{
-    console.log("test desligas = ",)
+    console.log("test desligado = ",)
           axios.post('http://localhost:3000/acionamento', {data:'02'})
             .then(resp => {
                 console.log("teste opera = ", resp.data)
@@ -126,7 +126,32 @@ function desligar(values,method) {
                 console.log("erro= ",e)
             })  
 }}
+//feito RAFAELA
+function avanco(values, method) {
+    return dispatch => {
+        console.log("test avanco = ")
+        axios.post('http://localhost:3000/sentido', { data: '05' })
+            .then(resp => {
+                console.log("test avanco resposta = ", resp.data)
+                 })
+            .catch(e => {   //qdo o banco acusar algum erro
+                console.log("Error= ", e)
+            })
+    }}
 function reverso(values, method) {
+    return dispatch => {
+        console.log("test reverso = ")
+        axios.post('http://localhost:3000/sentido', { data: '06' })
+            .then(resp => {
+                console.log("test reverso resposta = ", resp.data)
+                 })
+            .catch(e => {   //qdo o banco acusar algum erro
+                console.log("Error= ", e)
+            })
+    }}
+    
+
+/*function reverso(values, method) {
     return dispatch => {
         //console.log("Value = ", values._id)
         const id = values._id ? values._id : ''
@@ -168,7 +193,7 @@ function avanco(values, method) {
                 e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
             })
     }
-}
+}*/
 function nossoDelete(values, id_2) {
     const id = id_2
     const clientsOranalyzes = 'analyzes';
