@@ -21,14 +21,14 @@ class NewAnalyzeForm extends Component {
                         label='Identificador Pivô' cols='12 2' placeholder='Valor' />
                     <Field name='parameter5' component={labelAndInput} readOnly={readOnly}
                         label='Local de referência' cols='12 2' placeholder='Valor' />
-                    {/* <Field name='parameter3' component={labelAndInput} readOnly={readOnly}
+                     {/* <Field name='parameter 3' component={labelAndInput} readOnly={readOnly}
                         label='' cols='12 2' placeholder='Valor' />    
-                    <Field name='parameter4' component={labelAndInput} readOnly={readOnly}
+                    <Field name='parameter1' component={labelAndInput} readOnly={readOnly}
                         label='Parâmetro 4' cols='12 2' placeholder='Valor' />
-                    <Field name='parameter5' component={labelAndInput} readOnly={readOnly}
+                    <Field name='parameter2' component={labelAndInput} readOnly={readOnly}
                         label='Parâmetro 5' cols='12 2' placeholder='Valor' />
                     <Field name='id_client' type="hidden" component={labelAndInput} readOnly={readOnly}
-                        cols='0' /> */}
+                        cols='0' />  */}
                  </div>  
                     {/* <button className='btn btn-success' onClick={() => this.props.showHistory(an)}>
                 <button className='btn btn-success' onClick={() => this.props.showHistory(an)}>

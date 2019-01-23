@@ -41,7 +41,7 @@ class Analyze extends Component {
                             <TabHeader label='Cadastrar' icon='plus' target='tabCreate' />
                             <TabHeader label='Configurações' icon='pencil' target='tabUpdate' />
                             <TabHeader label='Excluir' icon='trash-o' target='tabDelete' />
-                            <TabHeader label='Histórico' icon='history' target='tabHistory' />
+                            <TabHeader label='Pivôs' icon='history' target='tabHistory' />
                             <TabHeader label='Novo Pivô' icon='bolt' target='tabNew' />
                         </TabsHeader>
                         <TabsContent>

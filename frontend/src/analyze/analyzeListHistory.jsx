@@ -35,9 +35,9 @@ class AnalyzeListHistory extends Component {
                     <th>Reverso</th>
                     </button></td>
                 <td>
-        {/* <button className='btn btn-success' onClick={() => this.props.showUpdate(x)}>
-                        <th>Configurar</th>
-        </button>*/}
+         <button className='btn btn-warning' onClick={() => this.props.showUpdate(x)}>
+                        <th>Editar</th>
+        </button>
                     <button className='btn btn-default' onClick={() => this.props.showDelete(x)}>
                         <th>Excluir</th>
                     </button>
@@ -57,7 +57,7 @@ class AnalyzeListHistory extends Component {
                             <th>Identificador Pivô</th>
                             <th>Local</th>
                             <th>Ligado/Desligado</th>
-                            <th>Avanço/Reverço</th>
+                            <th>Avanço/Reverso</th>
                             <th>Seco/Molhado</th>
                             <th>Liga/Desliga</th>
                             <th>Sentido</th>
