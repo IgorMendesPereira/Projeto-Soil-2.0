@@ -25,7 +25,7 @@ app.post('/acionamento', function (req, res) {
             client.destroy(); // kill client after server's response
         });
     });
-    //res.status(200).json({message:'ok'})
+    res.status(200).json({message:'ok'})
 })
 //FEITO POR RAFAELA
 app.post('/sentido', function (req, res) {
@@ -53,6 +53,25 @@ app.post('/sentido', function (req, res) {
 })
 
 
+// app.post('/sentido', function (req, res) {
+//     console.log(req.body);
+//     console.log("Sentido")
+//     let client = new net.Socket();
+//     client.connect(10002, '192.168.137.2', function() {
+//         console.log('Sentido');
+//         client.write(Buffer.from(req.body.data, 'hex'));
+//         client.on('data', function(data) {
+//             console.log('Received: ' + data);
+//             if(data.toString() === '7'){
+//                 res.status(200).json({message:'ok'})
+//             }else{
+//                 res.status(200).json({message:'deu ruim'})
+//             }
+//             client.destroy(); // kill client after server's response
+//         });
+//     });
+//     //res.status(200).json({message:'ok'})
+// })
 app.get('/oi', function (req, res) {
     res.status(200).json({message:'Hello'})
 })
