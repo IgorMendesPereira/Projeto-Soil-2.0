@@ -87,8 +87,6 @@ function desligar(values,method) {
     return dispatch =>{
     console.log("test desligas = ",)
           axios.post('http://localhost:3000/acionamento', {data: '02' })
-    console.log("test desligado = ",)
-          axios.post('http://localhost:3000/acionamento', {data:'02'})
             .then(resp => {
                 console.log("teste Desligado = ", resp.data)          
             })
