@@ -86,20 +86,9 @@ function ligar()  {
 function desligar(values,method) {
     return dispatch =>{
     console.log("test desligas = ",)
-          axios.post('http://localhost:3000/acionamento', {data:'02'})
+          axios.post('http://localhost:3000/acionamento', {data: '02' })
             .then(resp => {
-                console.log("teste Desligado = ", resp.data) 
-                // const id = values._id ? values._id : ''
-                // values.parameter1 = "Desligado";
-                // const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
-                // axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
-                //     .then(resp => {
-                //         toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
-                //     })
-                //     .catch(e => {   //qdo o banco acusar algum erro
-                //         e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
-                //     })
-           
+                console.log("teste Desligado = ", resp.data)          
             })
             .catch(e => {   //qdo o banco acusar algum erro
                 console.log("erro= ",e)
