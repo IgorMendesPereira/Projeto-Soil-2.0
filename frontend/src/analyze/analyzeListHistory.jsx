@@ -4,7 +4,27 @@ import { connect } from 'react-redux'
 import {showUpdate,updateLigar,updateDesligar, showDelete, updateReverso, updateAvanco,integrar, init, showNew } from './analyzeAction'
 
 
-class AnalyzeListHistory extends Component {
+class AnalyzeListHistory extends React.Component {
+    on(x)
+    {
+        this.props.updateLigar(x)
+        this.forceUpdate()
+    }
+    off(x)
+    {
+        this.props.updateDesligar(x)
+        this.forceUpdate()
+    }
+    go(x)
+    {
+        this.props.updateAvanco(x)
+        this.forceUpdate()
+    }
+    back(x)
+    {
+        this.props.updateReverso(x)
+        this.forceUpdate()
+    }
 
     renderRows() {
         const listHistory = this.props.listHistory || []
@@ -20,18 +40,18 @@ class AnalyzeListHistory extends Component {
                 <td>{x.parameter2}</td>
                 <td>{x.parameter3}</td>
                 <td>
-                    <button className='btn btn-success' onClick={() => this.props.updateLigar(x)}>
+                    <button className='btn btn-success' onClick={() => this.on(x)}>
                     <th>Ligar</th>
                     </button>
-                    <button className='btn btn-danger' onClick={() => this.props.updateDesligar(x)}>
+                    <button className='btn btn-danger' onClick={() => this.off(x)}>
                     <th>Desligar</th>
                     </button> 
                 </td>
                 <td>
-                    <button className='btn btn-success' onClick={() => this.props.updateAvanco(x)}>
+                    <button className='btn btn-success' onClick={() => this.go(x)}>
                     <th>Avanço</th>
                     </button>
-                    <button className='btn btn-danger' onClick={() => this.props.updateReverso(x)}>
+                    <button className='btn btn-danger' onClick={() => this.back(x)}>
                     <th>Reverso</th>
                     </button></td>
                 <td>

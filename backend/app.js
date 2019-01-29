@@ -12,18 +12,27 @@ app.post('/acionamento', function (req, res) {
     console.log(req.body);
     console.log("ligar")
     let client = new net.Socket();
-    client.connect(10003, '192.168.137.2', function() {
+    client.connect(10003, '192.168.137.2', function () {
         console.log('Connected');
         client.write(Buffer.from(req.body.data, 'hex'));
-        client.on('data', function(data) {
+        client.on('data', function (data) {
             console.log('Received: ' + data);
-            if(data.toString() === '4'){
-                res.status(200).json({message:'ok'})
-            }else{  
-                res.status(200).json({message:'deu ruim'})
+                if (data.toString() === '4') {
+                    res.status(200).json({ message: 'ok' })
+                } else {
+                    res.status(200).json({ message: 'deu ruim' })
+                
             }
-            client.destroy(); // kill client after server's response
+            client.destroy(); // kill client after server's response   
         });
+        // client.on('data', function (data) {
+        //     if (data.toString() === '4') {
+        //         res.status(200).json({ message: 'ok' })
+        //     } else {
+        //         res.status(200).json({ message: 'deu ruim' })
+        //     }
+        //     client.destroy(); // kill client after server's response   
+        // });
     });
     //res.status(200).json({message:'ok'})
 })

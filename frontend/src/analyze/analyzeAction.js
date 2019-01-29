@@ -30,7 +30,7 @@ export function getListHistory() {
 
 export const searchAnalyze = (id_client) => {  //vai buscar os serviços no backend
     return (dispatch, getState) => {
-       // console.log("searchAnalyze", id_client)
+        // console.log("searchAnalyze", id_client)
         const search = id_client ? `&id_client__regex=/${id_client}/` : ''
         const request = axios.get(`${BASE_URL}/analyzes/?sort=-createdAt${search}`)
             .then(resp => dispatch({ type: 'ANALYZE__FETCHED', payload: resp }))
@@ -70,12 +70,26 @@ function submit(values, method) {
             })
     }
 }
-function ligar()  {
+function ligar(values, method) {
     return dispatch => {
         console.log("test ligado = ")
         axios.post('http://localhost:3000/acionamento', { data: '01' })
             .then(resp => {
-                console.log("teste Ligado = ", resp.data)
+                //console.log("teste Ligado = ", resp.data.message)
+               // console.log("teste Ligado = ", resp.data)
+                if (resp.data.message === "ok") {
+                    const id = values._id ? values._id : ''
+                    values.parameter1 = "Ligado";
+                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                        .then(resp => {
+                            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                        })
+                        .catch(e => {   //qdo o banco acusar algum erro
+                            e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+                        })
+
+                }
             })
             .catch(e => {   //qdo o banco acusar algum erro
                 console.log("erro= ", e)
@@ -83,17 +97,30 @@ function ligar()  {
     }
 }
 
-function desligar(values,method) {
-    return dispatch =>{
-    console.log("test desligas = ",)
-          axios.post('http://localhost:3000/acionamento', {data: '02' })
+function desligar(values, method) {
+    return dispatch => {
+        console.log("test desligas = ")
+        axios.post('http://localhost:3000/acionamento', { data: '02' })
             .then(resp => {
-                console.log("teste Desligado = ", resp.data)          
+                console.log("teste Desligado = ", resp.data)
+                if (resp.data.message === "ok") {
+                    const id = values._id ? values._id : ''
+                    values.parameter1 = "Desligado";
+                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                        .then(resp => {
+                            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                        })
+                        .catch(e => {   //qdo o banco acusar algum erro
+                            e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+                        })
+                }
             })
             .catch(e => {   //qdo o banco acusar algum erro
-                console.log("erro= ",e)
-            })  
-}}
+                console.log("erro= ", e)
+            })
+    }
+}
 //feito RAFAELA
 function avanco(values, method) {
     return dispatch => {
@@ -101,105 +128,50 @@ function avanco(values, method) {
         axios.post('http://localhost:3000/sentido', { data: '05' })
             .then(resp => {
                 console.log("test avanco resposta = ", resp.data)
-                 })
+                if (resp.data.message === "Avanco ok") {
+                    const id = values._id ? values._id : ''
+                    values.parameter2 = "Reverso";
+                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                        .then(resp => {
+                            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                        })
+                        .catch(e => {   //qdo o banco acusar algum erro
+                            e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+                        })
+                }
+            })
             .catch(e => {   //qdo o banco acusar algum erro
                 console.log("Error= ", e)
             })
-    }}
+    }
+}
 function reverso(values, method) {
     return dispatch => {
         console.log("test reverso = ")
         axios.post('http://localhost:3000/sentido', { data: '06' })
             .then(resp => {
                 console.log("test reverso resposta = ", resp.data)
-                 })
+                if (resp.data.message === "Reverso ok") {
+                    const id = values._id ? values._id : ''
+                    values.parameter2 = "Avanço";
+                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                        .then(resp => {
+                            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                        })
+                        .catch(e => {   //qdo o banco acusar algum erro
+                            e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+                        })
+                }
+            })
             .catch(e => {   //qdo o banco acusar algum erro
                 console.log("Error= ", e)
             })
-    }}
-    
-
-/*function reverso(values, method) {
-    return dispatch => {
-        //console.log("Value = ", values._id)
-        const id = values._id ? values._id : ''
-        values.parameter2 = "Reverso";
-        //console.log("id = ", id)
-        const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' // PENSAR.. PENSAR..
-        //console.log("clientsOranalyzes = ", clientsOranalyzes)
-          
+    }
+}
 
 
-    
-}}
-// function avanco(values, method) {
-//     return dispatch => {
-//         console.log("test avanco = ")
-//         axios.post('http://localhost:3000/sentido', { data: '05' })
-//             .then(resp => {
-//                 console.log("teste Avanço = ", resp.data)
-//                 const id = values._id ? values._id : ''
-//                 values.parameter2 = "Avanço";
-//                 const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
-//                 axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
-//                     .then(resp => {
-//                         toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
-//                     })
-//                     .catch(e => {   //qdo o banco acusar algum erro
-//                         e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
-//                     })
-//             })
-//             .catch(e => {   //qdo o banco acusar algum erro
-//                 console.log("erro= ", e)
-//             })
-//     }
-// }
-function avanco(values, method) {
-    return dispatch => {
-        console.log("test avanco = ")
-        axios.post('http://localhost:3000/sentido', { data: '05' })
-            .then(resp => {
-                console.log("test avanco resposta = ", resp.data)
-                 })
-            .catch(e => {   //qdo o banco acusar algum erro
-                console.log("Error= ", e)
-            })
-    }}
-// function reverso(values, method) {
-//     return dispatch => {
-//         console.log("test Reverso = ")
-//         axios.post('http://localhost:3000/sentido', { data: '06' })
-//             .then(resp => {
-//                 console.log("teste Reverso = ", resp.data)
-//                 const id = values._id ? values._id : ''
-//                 values.parameter2 = "Reverso";
-//                 const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
-//                 axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
-//                     .then(resp => {
-//                         toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
-//                     })
-//                     .catch(e => {   //qdo o banco acusar algum erro
-//                         e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
-//                     })
-//             })
-//             .catch(e => {   //qdo o banco acusar algum erro
-//                 console.log("erro= ", e)
-//             })
-//     }
-// }
-function reverso(values, method) {
-    return dispatch => {
-//         console.log("test reverso = ")
-//         axios.post('http://localhost:3000/sentido', { data: '06' })
-//             .then(resp => {
-//                 console.log("test reverso resposta = ", resp.data)
-//                  })
-//             .catch(e => {   //qdo o banco acusar algum erro
-//                 console.log("Error= ", e)
-//             })
-//     }
-// }*/
-//     }}
 function nossoDelete(values, id_2) {
     const id = id_2
     const clientsOranalyzes = 'analyzes';
@@ -212,10 +184,11 @@ function nossoDelete(values, id_2) {
             console.log(e)
             e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
         })
-        //window.location.reload()
+    //window.location.reload()
 }
 //Mudam o Status de liga e desliga
-export function updateLigar(values) {
+export function updateLigar(values, an)
+    {
     return ligar(values, 'put')
 }
 export function updateDesligar(values) {
@@ -230,20 +203,6 @@ export function updateReverso(values) {
 }
 
 
-
-
-/* function integrar(analyze) { //integração
-    axios.post('update')(`${RAFA_URL}/${analyze}/${analyze._id}`, values) // Tentando uma possivel conversa
-        console.log("TESTE = ", _id)
-        .then(resp => {
-            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
-            dispatch(init())
-        })
-        .catch(e => {   //qdo o banco acusar algum erro
-            console.log(e)
-            e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
-        })
-}    */
 
 /**************************************************************************************************/
 
@@ -282,13 +241,13 @@ export function showDelete(analyze) { //delete do pivo
     nossoDelete(analyze, analyze._id)
     window.location.reload()
     showHistory(analyze)
-  
+
 }
 export function meuDelete(analyze) { //delete da fazenda
 
     return [
         //console.log("showDelete", analyze),
-        { type: 'FORM_FORMNEW', payload: analyze},
+        { type: 'FORM_FORMNEW', payload: analyze },
         showTabs('tabDelete'),
         selectTab('tabDelete'),
         initialize('analyzeForm', analyze) //inicializar o formulário com dados já cadastrados
