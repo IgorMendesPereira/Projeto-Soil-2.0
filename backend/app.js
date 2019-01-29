@@ -27,7 +27,7 @@ app.post('/acionamento', function (req, res) {
     });
     //res.status(200).json({message:'ok'})
 })
-
+//FEITO POR RAFAELA
 app.post('/sentido', function (req, res) {
     console.log(req.body);
     console.log("Avanco")

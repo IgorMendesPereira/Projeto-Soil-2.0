@@ -87,12 +87,48 @@ function desligar(values,method) {
     return dispatch =>{
     console.log("test desligas = ",)
           axios.post('http://localhost:3000/acionamento', {data: '02' })
+    console.log("test desligado = ",)
+          axios.post('http://localhost:3000/acionamento', {data:'02'})
             .then(resp => {
                 console.log("teste Desligado = ", resp.data)          
             })
             .catch(e => {   //qdo o banco acusar algum erro
                 console.log("erro= ",e)
             })  
+}}
+//feito RAFAELA
+function avanco(values, method) {
+    return dispatch => {
+        console.log("test avanco = ")
+        axios.post('http://localhost:3000/sentido', { data: '05' })
+            .then(resp => {
+                console.log("test avanco resposta = ", resp.data)
+                 })
+            .catch(e => {   //qdo o banco acusar algum erro
+                console.log("Error= ", e)
+            })
+    }}
+function reverso(values, method) {
+    return dispatch => {
+        console.log("test reverso = ")
+        axios.post('http://localhost:3000/sentido', { data: '06' })
+            .then(resp => {
+                console.log("test reverso resposta = ", resp.data)
+                 })
+            .catch(e => {   //qdo o banco acusar algum erro
+                console.log("Error= ", e)
+            })
+    }}
+    
+
+/*function reverso(values, method) {
+    return dispatch => {
+        //console.log("Value = ", values._id)
+        const id = values._id ? values._id : ''
+        values.parameter2 = "Reverso";
+        //console.log("id = ", id)
+        const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients' // PENSAR.. PENSAR..
+        //console.log("clientsOranalyzes = ", clientsOranalyzes)
           
 
 
@@ -155,15 +191,17 @@ function avanco(values, method) {
 // }
 function reverso(values, method) {
     return dispatch => {
-        console.log("test reverso = ")
-        axios.post('http://localhost:3000/sentido', { data: '06' })
-            .then(resp => {
-                console.log("test reverso resposta = ", resp.data)
-                 })
-            .catch(e => {   //qdo o banco acusar algum erro
-                console.log("Error= ", e)
-            })
-    }}
+//         console.log("test reverso = ")
+//         axios.post('http://localhost:3000/sentido', { data: '06' })
+//             .then(resp => {
+//                 console.log("test reverso resposta = ", resp.data)
+//                  })
+//             .catch(e => {   //qdo o banco acusar algum erro
+//                 console.log("Error= ", e)
+//             })
+//     }
+// }*/
+//     }}
 function nossoDelete(values, id_2) {
     const id = id_2
     const clientsOranalyzes = 'analyzes';
