@@ -17,9 +17,12 @@ app.post('/acionamento', function (req, res) {
         client.write(Buffer.from(req.body.data, 'hex'));
         client.on('data', function (data) {
             console.log('Received: ' + data);
+                if (data.toString() === '3') {
+                    res.status(200).json({ message: 'Pressurizou' })
+                } 
                 if (data.toString() === '4') {
-                    res.status(200).json({ message: 'ok' })
-                } else {
+                    res.status(200).json({ message: 'Desligado' })
+                }else {
                     res.status(200).json({ message: 'deu ruim' })
                 
             }

@@ -76,19 +76,31 @@ function ligar(values, method) {
         axios.post('http://localhost:3000/acionamento', { data: '01' })
             .then(resp => {
                 //console.log("teste Ligado = ", resp.data.message)
-               // console.log("teste Ligado = ", resp.data)
-                if (resp.data.message === "ok") {
+                console.log("teste Ligado = ", resp.data)
+                if (resp.data.message === "Pressurizou") {
                     const id = values._id ? values._id : ''
                     values.parameter1 = "Ligado";
                     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
                     axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
                         .then(resp => {
-                            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                            toastr.success('Sucesso', 'Operação Realizada com Sucesso!')
                         })
                         .catch(e => {   //qdo o banco acusar algum erro
                             e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
                         })
 
+                }else {
+                    const id = values._id ? values._id : ''
+                    values.parameter1 = "Erro - Bomba";
+                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                        .then(resp => {
+                            toastr.error('ERRO', 'Bomba não pressurizada')
+
+                        })
+                        .catch(e => {   //qdo o banco acusar algum erro
+                            e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
+                        })
                 }
             })
             .catch(e => {   //qdo o banco acusar algum erro
@@ -99,17 +111,17 @@ function ligar(values, method) {
 
 function desligar(values, method) {
     return dispatch => {
-        console.log("test desligas = ")
+        console.log("test desliga = ")
         axios.post('http://localhost:3000/acionamento', { data: '02' })
             .then(resp => {
                 console.log("teste Desligado = ", resp.data)
-                if (resp.data.message === "ok") {
+                if (resp.data.message === "Desligado") {
                     const id = values._id ? values._id : ''
                     values.parameter1 = "Desligado";
                     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
                     axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
                         .then(resp => {
-                            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                            toastr.success('Sucesso', 'Operação Realizada com Sucesso!')
                         })
                         .catch(e => {   //qdo o banco acusar algum erro
                             e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
@@ -127,14 +139,14 @@ function avanco(values, method) {
         console.log("test avanco = ")
         axios.post('http://localhost:3000/sentido', { data: '05' })
             .then(resp => {
-                console.log("test avanco resposta = ", resp.data)
-                if (resp.data.message === "Avanco ok") {
+                console.log("test avanco = ", resp.data)
+                if (resp.data.message === "ok") {
                     const id = values._id ? values._id : ''
                     values.parameter2 = "Reverso";
                     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
                     axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
                         .then(resp => {
-                            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                            toastr.success('Sucesso', 'Operação Realizada com Sucesso!')
                         })
                         .catch(e => {   //qdo o banco acusar algum erro
                             e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
@@ -151,14 +163,14 @@ function reverso(values, method) {
         console.log("test reverso = ")
         axios.post('http://localhost:3000/sentido', { data: '06' })
             .then(resp => {
-                console.log("test reverso resposta = ", resp.data)
-                if (resp.data.message === "Reverso ok") {
+                console.log("test reverso = ", resp.data)
+                if (resp.data.message === "ok") {
                     const id = values._id ? values._id : ''
                     values.parameter2 = "Avanço";
                     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
                     axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
                         .then(resp => {
-                            toastr.success('Sucesso', 'Operação Realizada com Sucesso.')
+                            toastr.success('Sucesso', 'Operação Realizada com Sucesso!')
                         })
                         .catch(e => {   //qdo o banco acusar algum erro
                             e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
