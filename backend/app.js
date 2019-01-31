@@ -20,8 +20,8 @@ app.post('/acionamento', function (req, res) {
                 if (data.toString() === '3') {
                     res.status(200).json({ message: 'Pressurizou' })
                 } 
-                if (data.toString() === '4') {
-                    res.status(200).json({ message: 'Desligado' })
+                if (data.toString() === '9') {
+                    res.status(200).json({ message: 'Não Presurizou' })
                 }else {
                     res.status(200).json({ message: 'deu ruim' })
                 
