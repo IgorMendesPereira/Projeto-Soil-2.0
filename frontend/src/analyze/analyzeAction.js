@@ -70,16 +70,18 @@ function submit(values, method) {
             })
     }
 }
-function ligar(values, method) {
+function ligar(values,obj, method) {
     return dispatch => {
         console.log("test ligado = ")
+
         axios.post('http://localhost:3000/acionamento', { data: '01' })
             .then(resp => {
                 //console.log("teste Ligado = ", resp.data.message)
-                console.log("teste Ligado = ", resp.data)
+                console.log("teste Ligado = ", resp.data.message)
                 if (resp.data.message === "Pressurizou") {
                     const id = values._id ? values._id : ''
                     values.parameter1 = "Ligado";
+                    obj.forceUpdate()
                     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
                     axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
                         .then(resp => {
@@ -90,8 +92,10 @@ function ligar(values, method) {
                         })
 
                 }else {
+                   
                     const id = values._id ? values._id : ''
                     values.parameter1 = "Erro - Bomba";
+                    obj.forceUpdate()
                     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
                     axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
                         .then(resp => {
@@ -109,7 +113,7 @@ function ligar(values, method) {
     }
 }
 
-function desligar(values, method) {
+function desligar(values, obj, method) {
     return dispatch => {
         console.log("test desliga = ")
         axios.post('http://localhost:3000/acionamento', { data: '02' })
@@ -118,6 +122,7 @@ function desligar(values, method) {
                 if (resp.data.message === "Desligado") {
                     const id = values._id ? values._id : ''
                     values.parameter1 = "Desligado";
+                    obj.forceUpdate()
                     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
                     axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
                         .then(resp => {
@@ -199,12 +204,12 @@ function nossoDelete(values, id_2) {
     //window.location.reload()
 }
 //Mudam o Status de liga e desliga
-export function updateLigar(values, an)
+export function updateLigar(values, obj)
     {
-    return ligar(values, 'put')
+    return ligar(values,obj, 'put')
 }
-export function updateDesligar(values) {
-    return desligar(values, 'put')
+export function updateDesligar(values,obj) {
+    return desligar(values,obj, 'put')
 }
 //Mudam o Status de avanço e reverço
 export function updateAvanco(values) {

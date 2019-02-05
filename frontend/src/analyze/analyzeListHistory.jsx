@@ -6,11 +6,11 @@ import { showUpdate, updateLigar, updateDesligar, showDelete, updateReverso, upd
 
 class AnalyzeListHistory extends React.Component {
     on(x) {
-        this.props.updateLigar(x)
+        this.props.updateLigar(x,this)
         this.forceUpdate()
     }
     off(x) {
-        this.props.updateDesligar(x)
+        this.props.updateDesligar(x,this)
         this.forceUpdate()
     }
     // go(x) {
