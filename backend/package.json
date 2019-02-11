@@ -2,9 +2,9 @@
   "name": "my-money-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/loader.js",
   "scripts": {
-    "dev": "node src/loader.js",
+    "dev": "nodemon",
     "production": "pm2 start src/loader.js --name my-money-backend"
   },
   "keywords": [],

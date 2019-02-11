@@ -8,7 +8,6 @@ const axios = require('axios');
 
 
 const BASE_URL = 'http://localhost:3003/api'
-const RAFA_URL = 'http://192.168.137.2:10003'
 const INITIAL_VALUES = { name: "", telephone: "", city: "", propertyname: "" }//ARRUMAR.. TÁ ERRADO
 var id;
 
@@ -188,6 +187,61 @@ function reverso(values, method) {
     }
 }
 
+function Status(values,obj, method) {
+    return dispatch => {
+        console.log("test ligado = ")
+
+        axios.get('http://localhost:3000/Status')
+            .then(resp => {
+                console.log("recepção ligado = ", resp.data.message)
+                if (resp.data.message === "ON") {
+                    const id = values._id ? values._id : ''
+                    values.parameter1 = "Ligado";
+                    obj.forceUpdate()
+                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                        .then(resp => {
+
+                        })
+                        .catch(e => {   //qdo o banco acusar algum erro
+    
+                        })
+
+                }else if (resp.data.message === "ERROR") {
+                   
+                    const id = values._id ? values._id : ''
+                    values.parameter1 = "Erro - Bomba";
+                    obj.forceUpdate()
+                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                        .then(resp => {
+
+                        })
+                        .catch(e => {   //qdo o banco acusar algum erro
+
+                        })
+                }
+                else if (resp.data.message === "OFF") {
+                   
+                    const id = values._id ? values._id : ''
+                    values.parameter1 = "Desligado";
+                    obj.forceUpdate()
+                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
+                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                        .then(resp => {
+
+                        })
+                        .catch(e => {   //qdo o banco acusar algum erro
+
+                        })
+                }
+            })
+            .catch(e => {   //qdo o banco acusar algum erro
+                console.log("erro= ", e)
+            })
+    }
+}
+
 
 function nossoDelete(values, id_2) {
     const id = id_2
@@ -201,7 +255,7 @@ function nossoDelete(values, id_2) {
             console.log(e)
             e.response.data.errors.forEach(error => toastr.error('Erro', error)) //errors é do backend..forEach percorre a matriz de erros
         })
-    //window.location.reload()
+
 }
 //Mudam o Status de liga e desliga
 export function updateLigar(values, obj)
@@ -218,7 +272,9 @@ export function updateAvanco(values) {
 export function updateReverso(values) {
     return reverso(values, 'put')
 }
-
+export function updateStatus(values,obj) {
+    return Status(values, 'put')
+}
 
 
 /**************************************************************************************************/

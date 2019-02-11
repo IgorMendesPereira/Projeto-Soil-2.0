@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { showUpdate, updateLigar, updateDesligar, showDelete, updateReverso, updateAvanco, integrar, init, showNew } from './analyzeAction'
-
+import socketIOClient from "socket.io-client";
 
 class AnalyzeListHistory extends React.Component {
     on(x) {
@@ -13,6 +13,8 @@ class AnalyzeListHistory extends React.Component {
         this.props.updateDesligar(x,this)
         this.forceUpdate()
     }
+
+//    abre de novo no force update
     // go(x) {
     //     this.props.updateAvanco(x)
     //     this.forceUpdate()
@@ -21,6 +23,13 @@ class AnalyzeListHistory extends React.Component {
     //     this.props.updateReverso(x)
     //     this.forceUpdate()
     // }
+
+    componentDidMount() {
+        const socket = socketIOClient("http://127.0.0.1:3000");
+        socket.on("status", data => {
+            console.log("DEU BAO", data)
+        });
+      }
 
     renderRows() {
         const listHistory = this.props.listHistory || []
