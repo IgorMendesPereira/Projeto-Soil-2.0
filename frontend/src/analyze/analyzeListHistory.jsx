@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { showUpdate, updateLigar, updateDesligar, showDelete, updateReverso, updateAvanco, integrar, init, showNew } from './analyzeAction'
+import { showUpdate, updateLigar, updateStatus, updateDesligar, showDelete, updateReverso, updateAvanco, integrar, init, showNew } from './analyzeAction'
 import socketIOClient from "socket.io-client";
 
 class AnalyzeListHistory extends React.Component {
+
     on(x) {
         this.props.updateLigar(x,this)
-        this.forceUpdate()
     }
     off(x) {
         this.props.updateDesligar(x,this)
-        this.forceUpdate()
     }
 
 //    abre de novo no force update
@@ -23,20 +22,25 @@ class AnalyzeListHistory extends React.Component {
     //     this.props.updateReverso(x)
     //     this.forceUpdate()
     // }
-
+    
     componentDidMount() {
+   
+
         const socket = socketIOClient("http://127.0.0.1:3000");
         socket.on("status", data => {
             console.log("DEU BAO", data)
+            this.forceUpdate()
+           // window.location.reload()
         });
-      }
+
+        }
+      
 
     renderRows() {
         const listHistory = this.props.listHistory || []
-
-        //console.log("AnalyzeListHistory",listHistory)
+      
         return listHistory.map(x =>
-
+        
             <tr key={x._id}>
                 <td>{x.analyzeCreatedAT}</td>
                 <td>{x.parameter4}</td>
@@ -105,8 +109,9 @@ class AnalyzeListHistory extends React.Component {
 
         )
     }
+
 }
 
 const mapStateToProps = state => ({ listHistory: state.analyze.listHistory }) //analyze é do reducer global
-const mapDispatchToProps = dispatch => bindActionCreators({ updateLigar, updateDesligar, updateReverso, showUpdate, showDelete, updateAvanco, integrar, init, showNew }, dispatch) //dispatch dispara a ação pros reducers
+const mapDispatchToProps = dispatch => bindActionCreators({ updateLigar, updateDesligar,updateStatus, updateReverso, showUpdate, showDelete, updateAvanco, integrar, init, showNew }, dispatch) //dispatch dispara a ação pros reducers
 export default connect(mapStateToProps, mapDispatchToProps)(AnalyzeListHistory)

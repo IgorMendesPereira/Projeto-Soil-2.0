@@ -3,6 +3,7 @@ import { toastr } from 'react-redux-toastr'
 import { reset as resetForm, initialize } from 'redux-form'
 import { showTabs, selectTab } from '../common/tab/tabActions'
 
+
 const axios = require('axios');
 
 
@@ -80,9 +81,10 @@ function ligar(values,obj, method) {
                 if (resp.data.message === "Pressurizou") {
                     const id = values._id ? values._id : ''
                     values.parameter1 = "Ligado";
+                    console.log("Idddd = "+id)
                     obj.forceUpdate()
                     const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
-                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
+                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${"oi"}`,{ parameter1: "fdsfdsfsd", parameter2:"fdsfdsfsd"}) //executa o post e depois realiza as ações
                         .then(resp => {
                             toastr.success('Sucesso', 'Operação Realizada com Sucesso!')
                         })
@@ -187,60 +189,6 @@ function reverso(values, method) {
     }
 }
 
-function Status(values,obj, method) {
-    return dispatch => {
-        console.log("test ligado = ")
-
-        axios.get('http://localhost:3000/Status')
-            .then(resp => {
-                console.log("recepção ligado = ", resp.data.message)
-                if (resp.data.message === "ON") {
-                    const id = values._id ? values._id : ''
-                    values.parameter1 = "Ligado";
-                    obj.forceUpdate()
-                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
-                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
-                        .then(resp => {
-
-                        })
-                        .catch(e => {   //qdo o banco acusar algum erro
-    
-                        })
-
-                }else if (resp.data.message === "ERROR") {
-                   
-                    const id = values._id ? values._id : ''
-                    values.parameter1 = "Erro - Bomba";
-                    obj.forceUpdate()
-                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
-                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
-                        .then(resp => {
-
-                        })
-                        .catch(e => {   //qdo o banco acusar algum erro
-
-                        })
-                }
-                else if (resp.data.message === "OFF") {
-                   
-                    const id = values._id ? values._id : ''
-                    values.parameter1 = "Desligado";
-                    obj.forceUpdate()
-                    const clientsOranalyzes = values.id_client ? 'analyzes' : 'clients'
-                    axios[method](`${BASE_URL}/${clientsOranalyzes}/${id}`, values) //executa o post e depois realiza as ações
-                        .then(resp => {
-
-                        })
-                        .catch(e => {   //qdo o banco acusar algum erro
-
-                        })
-                }
-            })
-            .catch(e => {   //qdo o banco acusar algum erro
-                console.log("erro= ", e)
-            })
-    }
-}
 
 
 function nossoDelete(values, id_2) {
@@ -271,9 +219,6 @@ export function updateAvanco(values) {
 }
 export function updateReverso(values) {
     return reverso(values, 'put')
-}
-export function updateStatus(values,obj) {
-    return Status(values, 'put')
 }
 
 

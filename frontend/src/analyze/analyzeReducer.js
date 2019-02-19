@@ -22,6 +22,7 @@ export default function (state = INITIAL_STATE, action) {
         case 'ANALYZE__FETCHED':
            // console.log("ANALYZE__FETCHED")
             return { ...state, listHistory: action.payload.data }
+            
 
         default:
             return state
