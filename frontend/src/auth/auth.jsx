@@ -12,6 +12,11 @@ import If from '../common/operator/if'
 import Messages from '../common/msg/messages'
 import Input from '../common/form/inputAuth'
 
+const loginBoxMsgStyle = {
+    color: 'green',
+    fontSize: '16px'
+};
+
 class Auth extends Component {
     constructor(props) {
         super(props)
@@ -33,7 +38,7 @@ class Auth extends Component {
         const { handleSubmit } = this.props
         return (
             <div className="login-box">
-                <div className="login-logo"><b> Soil </b> </div>
+                <div className="login-logo"><img id='logo-img' src={require('../img/logo.png')}/> </div>
                 <div className="login-box-body">
                     <p className="login-box-msg">Bem vindo!</p>
                     <form onSubmit={handleSubmit(v => this.onSubmit(v))}>

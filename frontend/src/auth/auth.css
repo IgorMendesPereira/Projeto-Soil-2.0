@@ -1,5 +1,12 @@
+html, body {
+    height: 100%;
+}
+
 .wrapper {
     background-color: #fff!important;
+    background-image: url('../img/pivo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .login-box-body {
     background-color: #eee;
@@ -9,4 +16,14 @@
 }
 .login-box a:hover {
     cursor: pointer;
+}
+
+.login-box-msg {
+    color: black;
+    font-size: 20px;
+}
+
+#logo-img {
+    width:300px;
+    border-radius: 30px;
 }
