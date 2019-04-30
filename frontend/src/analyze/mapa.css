@@ -1,0 +1,13 @@
+#map_container {
+    height: 100%;
+}
+
+#info {
+    height: 20%;
+    text-align: center;
+}
+
+#mapid {
+    border: 1px solid black;
+    height: 400px;
+}
