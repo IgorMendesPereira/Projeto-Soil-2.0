@@ -5,5 +5,5 @@ npm install webpack socket.io axios express redux react-redux redux-thunk redux-
 npm install --save-dev webpack-dev-server webpack-cli mini-css-extract-plugin babel-loader @babel/core @babel/preset-env @babel/preset-react redux-devtools css-loader style-loader file-loader
 
 back
-npm install axios socket.io express react react-dom express-query-int
+npm install axios socket.io express react react-dom express-query-int mongoose
 npm install --save-dev webpack webpack-dev-server webpack-cli nodemon babel-loader @babel/core @babel/preset-env @babel/preset-react file-loader
