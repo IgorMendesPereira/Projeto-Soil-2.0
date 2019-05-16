@@ -6,4 +6,4 @@ npm install --save-dev webpack-dev-server webpack-cli mini-css-extract-plugin ba
 
 back
 npm install axios socket.io express react react-dom
-npm install --save-dev webpack webpack-dev-server webpack-cli babel-loader @babel/core @babel/preset-env @babel/preset-react file-loader
+npm install --save-dev webpack webpack-dev-server webpack-cli nodemon babel-loader @babel/core @babel/preset-env @babel/preset-react file-loader
